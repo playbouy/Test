@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+		    <param name="Encoding" value="UTF-8" />
+			<param name="ConversionPattern" value="%d{yyyy年MM月dd日 HH:mm:ss,SSS} %p %x - %m\n" />
+		</layout>
+	</appender>
+	
+	<!-- 配置程序调试时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="NORMAL_ROLLINGDAY_FILE"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Encoding" value="UTF-8" />
+		<!-- 调试日志文件存放在log/debug目录下 -->
+		<param name="File" value="/logs/cirm/out/cirmCategory/out.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<param name="DatePattern" value=".yyyy-MM-dd" />
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出DEBUG,error,fatal信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="WARN" />
+		</filter>
+	</appender>
+	
+	
+	<!-- 配置程序调试时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="ERROR_ROLLINGDAY_FILE"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Encoding" value="UTF-8" />
+		<!-- 调试日志文件存放在log/debug目录下 -->
+		<param name="File" value="/logs/cirm/err/cirmCategory/err.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<param name="DatePattern" value=".yyyy-MM-dd" />
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出DEBUG,error,fatal信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	
+	<!-- 
+	<category name="com.bjhz.gcp" additivity="true">
+      <priority value="INFO" />
+      <appender-ref ref="NORMAL_ROLLINGDAY_FILE" />
+      <appender-ref ref="ERROR_ROLLINGDAY_FILE" />
+    </category>
+     -->
+
+	<!-- 
+    <category name="com.bjhz" additivity="true">
+      <priority value="WARN" />
+      <appender-ref ref="CONSOLE" />
+      <appender-ref ref="ERROR_ROLLINGDAY_FILE" />
+    </category>
+    -->
+    
+    <!-- 
+    <logger name="com.bjhz.gcp">
+		<level value="ERROR" />
+		<appender-ref ref="ROLLINGDAY_FILE" />
+	</logger>
+	<logger name="com.bjhz.gcp">
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+    -->
+    
+    <!-- 
+    <category name="com.bjhz.gcp" additivity="true">
+      <priority value="INFO" />
+      <appender-ref ref="NORMAL_ROLLINGDAY_FILE" />
+    </category>
+    
+    <category name="com.bjhz" additivity="true">
+      <priority value="WARN" />
+      <appender-ref ref="CONSOLE" />
+      <appender-ref ref="ERROR_ROLLINGDAY_FILE" />
+    </category>
+      -->
+      
+    <root>
+		<level value="info"/>
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="NORMAL_ROLLINGDAY_FILE"/>
+		<appender-ref ref="ERROR_ROLLINGDAY_FILE"/>
+	</root>
+     
+</log4j:configuration>

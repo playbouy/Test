@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<!-- 分类dao  -->
+	<bean id="cirmCategoryDao"
+		class="com.letour.cirm.category.dao.imp.CirmCategoryDaoImp" lazy-init="false">
+		<property name = "dataSource">
+             <ref bean = "dataSource" />
+        </property>
+	</bean>
+	
+	 <!-- 字典池加载类 -->
+	 <bean id="categoryPoolLoad" class="com.letour.cirm.category.load.CategoryPoolLoadDB" >
+		<property name="cirmCategoryDao">
+			<ref local="cirmCategoryDao" />
+		</property>
+	 </bean>
+	 
+	 <!-- 字典池服务-->
+	 <bean id="categoryPoolLoadService" class="com.letour.cirm.category.service.imp.CategoryPoolLoadServiceImp" >
+	 	<property name="categoryPoolLoad">
+			<ref local="categoryPoolLoad" />
+		</property>
+	 </bean>
+	 
+	 <!-- 分类服务-->
+	 <bean id="cirmCategoryService" class="com.letour.cirm.category.service.imp.CirmCategoryServiceImp" >
+	 </bean>
+	 
+	 <!-- 分类字典服务-->
+	 <bean id="categoryDicService" class="com.letour.cirm.category.service.imp.CategoryDicServiceImp" >
+	 </bean>
+	 
+</beans>
+

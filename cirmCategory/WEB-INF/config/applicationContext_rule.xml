@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<!-- 规则dao  -->
+	<bean id="cirmRuleDao"
+		class="com.letour.cirm.rule.dao.imp.CirmRuleDaoImp" lazy-init="false">
+		<property name = "dataSource">
+             <ref bean = "dataSource" />
+        </property>
+	</bean>
+	
+	 <!-- 字典池加载类 -->
+	 <bean id="rulePoolLoad" class="com.letour.cirm.rule.load.RulePoolLoadDB" >
+		<property name="cirmRuleDao">
+			<ref local="cirmRuleDao" />
+		</property>
+	 </bean>
+	 
+	 <!-- 字典池服务-->
+	 <bean id="rulePoolLoadService" class="com.letour.cirm.rule.service.imp.RulePoolLoadServiceImp" >
+	 	<property name="rulePoolLoad">
+			<ref local="rulePoolLoad" />
+		</property>
+	 </bean>
+	 
+	 <!-- 规则服务-->
+	 <bean id="cirmRuleService" class="com.letour.cirm.rule.service.imp.CirmRuleServiceImp" >
+	 	<property name="ruleDicService">
+			<ref local="ruleDicService" />
+		</property>
+		<property name="calRule">
+			<ref local="calRule" />
+		</property>
+	 </bean>
+	 
+	 <!-- 规则字典服务-->
+	 <bean id="ruleDicService" class="com.letour.cirm.rule.service.imp.RuleDicServiceImp" >
+	 </bean>
+	 
+	 <!-- 计算 -->
+	 <bean id="calRule" class="com.letour.cirm.rule.cal.CalRule" >
+	 	<property name="ruleDicService">
+			<ref local="ruleDicService" />
+		</property>
+	 </bean>
+	 
+</beans>
+
